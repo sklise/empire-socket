@@ -1,0 +1,9 @@
+{
+  "name": "empire",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Steve Klise",
+  "dependencies": {
+    "node-osc": "^0.2.1"
+  }
+}
