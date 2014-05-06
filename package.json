@@ -4,6 +4,7 @@
   "description": "",
   "author": "Steve Klise",
   "dependencies": {
-    "node-osc": "^0.2.1"
+    "node-osc": "^0.2.1",
+    "lodash": "^2.4.1"
   }
 }
