@@ -9,7 +9,7 @@ io.sockets.on('connection', (socket) ->
 
 resqueJobs =
   data: (arg,callback) ->
-    io.sockets.emit 'news', {message:"sup"}
+    io.sockets.emit 'news', arg
     console.log arguments
     callback()
   succeed: (arg, callback) ->
@@ -25,7 +25,7 @@ redisWorker = require('coffee-resque').connect({
 }).worker('empire', resqueJobs)
 
 redisWorker.on('job', (worker, queue, job) ->
-  console.log "GOT A JOB", worker,queue,job
+  # console.log "GOT A JOB", worker,queue,job
 )
 
 redisWorker.start()
