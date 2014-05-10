@@ -10,16 +10,17 @@ io.sockets.on('connection', (socket) ->
 # Define jobs for resque. the default job is 'data' which passes the argument
 # on to all sockets.
 resqueJobs =
-  data: (arg,callback) ->
-    io.sockets.emit 'news', arg
-    console.log arguments
+  sky: (arg,callback) ->
+    console.log "sky", arg, callback
+    io.sockets.emit 'sky', arg
     callback()
-  succeed: (arg, callback) ->
-    console.log 'succeeed'
+  lights: (arg) ->
+    console.log "lights", arg, callback
+    io.sockets.emit "lights", arg
     callback()
-  fail: (arg, callback) ->
-    console.log 'fail'
-    callback(new Error('fail'))
+  flash: (arg) ->
+    conole.log "flash", arg
+    io.sockets.emit "flash", arg
 
 # Set up RedisWorker to attach to the queue named 'empire'.
 redisWorker = require('coffee-resque').connect({
