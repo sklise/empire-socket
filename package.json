@@ -1,13 +1,13 @@
 {
-  "name": "empire",
+  "name": "empire-socket",
   "version": "0.0.0",
   "description": "",
   "author": "Steve Klise",
+  "license": "Attribution-NonCommercial-ShareAlike 4.0 International",
   "dependencies": {
     "lodash": "^2.4.1",
     "coffee-resque": "^0.1.11",
-    "socket.io": "^0.9.16",
-    "nano": "^5.8.0"
+    "socket.io": "^0.9.16"
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",
