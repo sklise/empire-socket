@@ -10,9 +10,6 @@
     "coffee-resque": "^0.1.11",
     "socket.io": "^0.9.16"
   },
-  "devDependencies": {
-    "dotenv": "^0.2.8"
-  },
   "scripts": {
     "start": "node index.js"
   }

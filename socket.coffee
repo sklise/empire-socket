@@ -1,7 +1,6 @@
 _ = require('lodash')
 io = require('socket.io').listen(3000)
 url = require('url')
-require('dotenv').load()
 
 brain = {}
 
