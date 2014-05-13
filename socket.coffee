@@ -1,8 +1,11 @@
 _ = require('lodash')
 io = require('socket.io').listen(3000)
+url = require('url')
 require('dotenv').load()
 
 brain = {}
+
+redisUrl = url.parse(process.env.REDISCLOUD_URL)
 
 # Handler for socket connections.
 io.sockets.on('connection', (socket) ->
@@ -32,8 +35,9 @@ resqueJobs =
 
 # Set up RedisWorker to attach to the queue named 'empire'.
 redisWorker = require('coffee-resque').connect({
-  host: "localhost"
-  port: 6379
+  host: redisUrl.hostname
+  port: redisUrl.port
+  password: redisUrl.auth.split(":")[1]
   timeout: 1000
 }).worker('empire', resqueJobs)
 
