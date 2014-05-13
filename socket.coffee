@@ -1,5 +1,6 @@
+port = parseInt process.env['PORT']
 _ = require('lodash')
-io = require('socket.io').listen(3000)
+io = require('socket.io').listen(port)
 url = require('url')
 
 brain = {}
@@ -26,11 +27,9 @@ resqueJobs =
     brain.lights = arg
     callback()
   flash: (arg,callback) ->
-    conole.log "flash", arg
+    console.log "flash", arg
     io.sockets.emit "flash", arg
     callback()
-  succeed: (arg,callback) -> callback()
-  fail: (arg,callback) -> callback(new Error('fail'))
 
 # Set up RedisWorker to attach to the queue named 'empire'.
 redisWorker = require('coffee-resque').connect({
@@ -39,5 +38,13 @@ redisWorker = require('coffee-resque').connect({
   password: redisUrl.auth.split(":")[1]
   timeout: 1000
 }).worker('empire', resqueJobs)
+
+redisWorker.on('job', (worker, queue, job) ->
+  # console.log "BALLLLLLLS", worker, queue, job
+)
+
+redisWorker.on('error', (err, worker, queue, job) ->
+  console.log "ERROR: #{worker}", err
+)
 
 redisWorker.start()
