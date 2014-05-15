@@ -23,7 +23,7 @@ resqueJobs =
     callback()
   lights: (arg,callback) ->
     console.log "lights", arg.details.color
-    io.sockets.emit "lowerLights", arg.details.color
+    io.sockets.emit "lights", arg.details.color
     brain.lights = arg.details.color
     callback()
   flash: (arg,callback) ->
