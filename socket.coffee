@@ -17,14 +17,14 @@ io.sockets.on('connection', (socket) ->
 # on to all sockets.
 resqueJobs =
   sky: (arg,callback) ->
-    console.log "sky", arg
-    brain.sky = arg
-    io.sockets.emit 'sky', arg
+    console.log "sky", arg.details.color
+    brain.sky = arg.details.color
+    io.sockets.emit 'sky', arg.details.color
     callback()
   lights: (arg,callback) ->
-    console.log "lights", arg
-    io.sockets.emit "lights", arg
-    brain.lights = arg
+    console.log "lights", arg.details.color
+    io.sockets.emit "lowerLights", arg.details.color
+    brain.lights = arg.details.color
     callback()
   flash: (arg,callback) ->
     console.log "flash", arg
