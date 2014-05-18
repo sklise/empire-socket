@@ -26,9 +26,9 @@ resqueJobs =
     io.sockets.emit "lights", arg.details.color
     brain.lights = arg.details.color
     callback()
-  flash: (arg,callback) ->
+  flashes: (arg,callback) ->
     console.log "flash", arg
-    io.sockets.emit "flash", arg
+    io.sockets.emit "flash", arg.details
     callback()
 
 # Set up RedisWorker to attach to the queue named 'empire'.
@@ -38,10 +38,6 @@ redisWorker = require('coffee-resque').connect({
   password: redisUrl.auth.split(":")[1]
   timeout: 1000
 }).worker('empire', resqueJobs)
-
-redisWorker.on('job', (worker, queue, job) ->
-  # console.log "BALLLLLLLS", worker, queue, job
-)
 
 redisWorker.on('error', (err, worker, queue, job) ->
   console.log "ERROR: #{worker}", err
