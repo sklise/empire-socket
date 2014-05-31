@@ -4,37 +4,22 @@ io = require('socket.io').listen(port)
 url = require('url')
 EventEmitter = require('events').EventEmitter
 
-brain = {}
-
 redisUrl = url.parse(process.env.REDISCLOUD_URL)
 
 messenger = new EventEmitter();
 
 # Handler for socket connections.
 io.sockets.on('connection', (socket) ->
-  _.each brain, (v,k) ->
-    socket.emit(k, v)
-
-  messenger.on 'flash', (data) ->
-    console.log "received flash to socket connection"
+  sendToSocket = (data) ->
     socket.emit 'flash', data
+
+  messenger.on 'flash', sendToSocket
+  socket.on 'disconnect', -> messenger.removeListener('flash', sendToSocket)
 )
 
-# Define jobs for resque. the default job is 'data' which passes the argument
-# on to all sockets.
+# Define jobs for resque.
 resqueJobs =
-  sky: (arg, callback) ->
-    console.log "sky", arg.details.color
-    brain.sky = arg.details.color
-    io.sockets.emit 'sky', arg.details.color
-    callback()
-  lights: (arg, callback) ->
-    console.log "lights", arg.details.color
-    io.sockets.emit "lights", arg.details.color
-    brain.lights = arg.details.color
-    callback()
   flashes: (arg, callback) ->
-    console.log "flash", arg
     messenger.emit 'flash', arg.details
     callback()
 
