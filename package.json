@@ -8,7 +8,7 @@
     "lodash": "^2.4.1",
     "coffee-script": "^1.7.1",
     "coffee-resque": "^0.1.11",
-    "socket.io": "^0.9.16"
+    "socket.io": "^1.0.0"
   },
   "scripts": {
     "start": "node index.js"
